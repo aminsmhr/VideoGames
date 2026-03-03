@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="AppHost/AppHost.csproj" Id="27583a52-d346-419f-acbf-8a7dcc321e83" />
     <Project Path="src/VideoGames.Api/VideoGames.Api.csproj" />
     <Project Path="src/VideoGames.Application/VideoGames.Application.csproj" />
     <Project Path="src/VideoGames.Domain/VideoGames.Domain.csproj" />
