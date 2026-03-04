@@ -1,11 +1,11 @@
-using VideoGames.Application.Contracts;
+using Microsoft.EntityFrameworkCore;
 using VideoGames.Application.Services;
 using VideoGames.Infrastructure;
 using VideoGames.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -25,10 +25,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-app.UseRouting();
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
+app.UseRouting();
 app.UseCors("AllowAngular");
 
 using (var scope = app.Services.CreateScope())
@@ -37,24 +40,7 @@ using (var scope = app.Services.CreateScope())
     await db.Database.MigrateAsync();
 }
 
-app.MapGet("/api/games", async (VideoGameService svc, CancellationToken ct) =>
-{
-    var list = await svc.BrowseAsync(ct);
-    return Results.Ok(list);
-});
-
-app.MapGet("/api/games/{id:guid}", async (Guid id, VideoGameService svc, CancellationToken ct) =>
-{
-    var game = await svc.GetAsync(id, ct);
-    return game is null ? Results.NotFound() : Results.Ok(game);
-});
-
-app.MapPut("/api/games/{id:guid}", async (Guid id, UpdateVideoGameRequest req, VideoGameService svc, CancellationToken ct) =>
-{
-    var ok = await svc.UpdateAsync(id, req, ct);
-    return ok ? Results.NoContent() : Results.NotFound();
-});
-
+app.MapControllers();
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
 app.Run();
