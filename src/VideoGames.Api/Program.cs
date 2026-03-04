@@ -20,9 +20,6 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("VideoGamesCatalogue")));
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
