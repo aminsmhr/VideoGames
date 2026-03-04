@@ -22,6 +22,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\VideoGames.Application\VideoGames.Application.csproj" />
     <ProjectReference Include="..\..\src\VideoGames.Domain\VideoGames.Domain.csproj" />
+    <ProjectReference Include="..\..\src\VideoGames.Infrastructure\VideoGames.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.3" />
   </ItemGroup>
 
 </Project>
