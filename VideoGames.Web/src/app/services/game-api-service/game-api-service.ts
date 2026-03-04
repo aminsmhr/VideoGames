@@ -21,7 +21,7 @@ export interface UpdateVideoGameRequest {
   providedIn: 'root',
 })
 export class GameApiService {
-    private baseUrl = 'http://localhost:5076/api';
+    private baseUrl = '/api';
 
   constructor(private http: HttpClient) { }
 

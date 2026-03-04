@@ -11,4 +11,5 @@ RUN npm run build -- --configuration production
 # run
 FROM nginx:alpine
 COPY --from=build /app/dist/VideoGames.Web/browser/ /usr/share/nginx/html
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
