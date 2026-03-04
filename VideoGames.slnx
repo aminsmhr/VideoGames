@@ -13,4 +13,7 @@
   <Folder Name="/tests/">
     <Project Path="tests/VideoGames.Application.Tests/VideoGames.Application.Tests.csproj" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="run-production.bat" />
+  </Folder>
 </Solution>
