@@ -1,0 +1,52 @@
+<div class="container py-4">
+  <h2 class="mb-3">Video Games</h2>
+
+  @if (loading) {
+    <div class="d-flex align-items-center gap-2 text-muted">
+      <div class="spinner-border spinner-border-sm" role="status"></div>
+      <span>Loading...</span>
+    </div>
+  }
+
+  @else if (error) {
+    <ngb-alert type="danger" [dismissible]="false">
+      {{ error }}
+    </ngb-alert>
+  }
+
+  @else if (games.length > 0) {
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Platform</th>
+          <th>Year</th>
+          <th>Price</th>
+          <th style="width:120px"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (g of games; track g.id) {
+          <tr>
+            <td>{{ g.title }}</td>
+            <td>{{ g.platform }}</td>
+            <td>{{ g.releaseYear }}</td>
+            <td>{{ g.price }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary" (click)="edit(g.id)">
+                Edit
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @else {
+    <ngb-alert type="secondary" [dismissible]="false">
+      No games found.
+    </ngb-alert>
+  }
+</div>

@@ -1,0 +1,28 @@
+@for (toast of toastService.toasts(); track toast.id) {
+  <div
+    class="toast show align-items-center border-0 mb-2"
+    role="alert"
+    [class]="toast.classname || ''"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+
+        @if (toast.template) {
+          <ng-container *ngTemplateOutlet="toast.template"></ng-container>
+        } @else {
+          {{ toast.text }}
+        }
+
+      </div>
+
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        aria-label="Close"
+        (click)="toastService.remove(toast)"
+      ></button>
+    </div>
+  </div>
+}
