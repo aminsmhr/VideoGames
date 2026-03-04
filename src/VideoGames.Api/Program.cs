@@ -15,21 +15,22 @@ builder.Services.AddScoped<VideoGameService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost", "http://localhost:4202")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
 
-
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VideoGamesCatalogue")));
 
 var app = builder.Build();
 
+app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors("AllowAngular");
 
-// Ensure DB created/migrated (demo-friendly)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
