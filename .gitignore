@@ -361,3 +361,21 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Repo-specific
+VideoGames.Web/dist/
+VideoGames.Web/.angular/
+VideoGames.Web/coverage/
+VideoGames.Web/.cache/
+
+# Aspire / local run artifacts
+AppHost/.aspire/
+AppHost/.dashboard/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Local .NET CLI home/cache when DOTNET_CLI_HOME points to repo
+/.dotnet/
