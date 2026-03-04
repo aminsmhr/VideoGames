@@ -44,7 +44,6 @@ describe('GameEdit', () => {
     fixture = TestBed.createComponent(GameEdit);
     component = fixture.componentInstance;
 
-    // triggers ngOnInit + bindings
     fixture.detectChanges();
     await fixture.whenStable();
   });

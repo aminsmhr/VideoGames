@@ -10,7 +10,6 @@ describe('ToastInterceptor (integrated via HttpModule)', () => {
   let http: HttpClient;
   let httpMock: HttpTestingController;
 
-  // keep it simple: we only need show()
   let toast: { show: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {

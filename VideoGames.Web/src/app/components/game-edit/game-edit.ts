@@ -71,10 +71,6 @@ save(): void {
 
   this.api.update(this.id, req).subscribe({
     next: () => {
-      // this.toast.show('Game updated successfully', {
-      //   classname: 'bg-success text-white',
-      //   delay: 2500
-      // });
       this.back();
     },
     error: () => {

@@ -11,9 +11,7 @@ describe('Toasts', () => {
 
   beforeEach(async () => {
     const toastServiceMock = {
-      // if your component uses `toastService.toasts()` (signal)
       toasts: () => [],
-      // if you also call remove() from template
       remove: () => {},
     };
 

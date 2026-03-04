@@ -8,7 +8,7 @@ public class VideoGame
     public int ReleaseYear { get; private set; }
     public decimal Price { get; private set; }
 
-    private VideoGame() { } // For EF
+    private VideoGame() { }
 
     public VideoGame(string title, string platform, int releaseYear, decimal price)
     {

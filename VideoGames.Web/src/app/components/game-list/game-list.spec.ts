@@ -38,7 +38,7 @@ describe('GameList', () => {
     fixture = TestBed.createComponent(GameList);
     component = fixture.componentInstance;
 
-    fixture.detectChanges(); // runs ngOnInit
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

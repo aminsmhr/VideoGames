@@ -12,18 +12,18 @@ public class VideoGamesController : ControllerBase
 
     public VideoGamesController(VideoGameService svc) => _svc = svc;
 
-    [HttpGet] // GET /api/videogames
+    [HttpGet]
     public async Task<IActionResult> Browse(CancellationToken ct)
         => Ok(await _svc.BrowseAsync(ct));
 
-    [HttpGet("{id:guid}")] // GET /api/videogames/{id}
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id, CancellationToken ct)
     {
         var game = await _svc.GetAsync(id, ct);
         return game is null ? NotFound() : Ok(game);
     }
 
-    [HttpPut("{id:guid}")] // PUT /api/videogames/{id}
+    [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateVideoGameRequest req, CancellationToken ct)
     {
         var ok = await _svc.UpdateAsync(id, req, ct);

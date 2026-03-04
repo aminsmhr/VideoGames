@@ -11,7 +11,6 @@ export interface ToastInfo {
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  // keep signal API the same (your components/tests use toasts())
   readonly toasts = signal<ToastInfo[]>([]);
 
   private nextId = 1;
@@ -27,15 +26,12 @@ export class ToastService {
       ...options,
     };
 
-    // ✅ update synchronously (no microtask)
     this.zone.run(() => {
       this.toasts.update(list => [...list, toast]);
     });
 
-    // ✅ schedule auto-remove
     if (toast.delay && toast.delay > 0) {
       toast.timeoutId = setTimeout(() => {
-        // run removal inside zone
         this.zone.run(() => this.removeById(toast.id));
       }, toast.delay);
     }
@@ -53,14 +49,12 @@ export class ToastService {
       clearTimeout(existing.timeoutId);
     }
 
-    // ✅ remove synchronously
     this.zone.run(() => {
       this.toasts.update(list => list.filter(t => t.id !== id));
     });
   }
 
   clear() {
-    // clear timers first
     for (const t of this.toasts()) {
       if (t.timeoutId) clearTimeout(t.timeoutId);
     }

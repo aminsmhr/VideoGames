@@ -2,7 +2,6 @@ import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
-// HttpModule bundles HttpClientModule and interceptor providers
 import { HttpModule } from './core/http/http.module';
 
 import { App } from './app';
