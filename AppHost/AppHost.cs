@@ -1,16 +1,20 @@
+using k8s.Models;
+
 var builder = DistributedApplication.CreateBuilder(args);
-var sql = builder.AddSqlServer("sql");
+var sql = builder.AddSqlServer("AspireSqlServer");
 
-var database = sql.AddDatabase("CleanArchitectureDb");
+var database = sql.AddDatabase("VideoGamesCatalogue");
 
-var api = builder.AddProject<Projects.VideoGames_Api>("api")
+var api = builder.AddProject<Projects.VideoGames_Api>("apiService")
     .WithReference(database)
     .WaitFor(database);
 
-//var web = builder.AddProject<Projects.VideoGames_Web>("web")
-//    .WaitFor(api);
+var web = builder.AddDockerfile("web", "../VideoGames.Web")
+    .WithHttpEndpoint(port: 80, targetPort: 80, name: "http")
+    .WithExternalHttpEndpoints()
+    .WaitFor(api);
 
-builder.AddNpmApp("webangular", @"..\VideoGames.Web")
+builder.AddNpmApp("webdevelopment", @"..\VideoGames.Web")
     .WithHttpEndpoint(name: "http", port: 4202, targetPort: 4201)
     .WithExternalHttpEndpoints()
     .WithNpmPackageInstallation()
@@ -18,30 +22,3 @@ builder.AddNpmApp("webangular", @"..\VideoGames.Web")
 
 builder.Build().Run();
 
-
-
-//var builder = DistributedApplication.CreateBuilder(args);
-
-
-//var sql = builder.AddSqlServer("sqlserver");
-
-//var database = sql.AddDatabase("VideoGameDb");
-
-//var apiService = builder.AddProject<Projects.VideoGame_ApiService>("apiservice")
-//    .WithHttpHealthCheck("/health")
-//    .WithReference(database)
-//    .WaitFor(database);
-
-//builder.AddNpmApp("webangular", "../ClientApp")
-//    .WithHttpEndpoint(name: "http", port: 4202, targetPort: 4201)
-//    .WithExternalHttpEndpoints()
-//    .WithNpmPackageInstallation()
-//    .WaitFor(apiService);
-
-//builder.AddProject<Projects.VideoGame_Web>("webfrontend")
-//    .WithExternalHttpEndpoints()
-//    .WithHttpHealthCheck("/health")
-//    .WithReference(apiService)
-//    .WaitFor(apiService);
-
-//builder.Build().Run();
