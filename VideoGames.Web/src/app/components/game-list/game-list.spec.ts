@@ -47,10 +47,10 @@ describe('GameList', () => {
   });
 
   it('should load games on init', () => {
-    expect(component.loading).toBe(false);
-    expect(component.error).toBeNull();
-    expect(component.games.length).toBe(1);
-    expect(component.games[0].title).toBe('Test');
+    expect(component.loading()).toBe(false);
+    expect(component.error()).toBeNull();
+    expect(component.games().length).toBe(1);
+    expect(component.games()[0].title).toBe('Test');
   });
 
   it('edit should navigate to edit route', () => {
