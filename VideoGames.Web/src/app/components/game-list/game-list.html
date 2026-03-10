@@ -1,20 +1,20 @@
 <div class="container py-4">
   <h2 class="mb-3">Video Games</h2>
-
-  @if (loading) {
+  
+  @if (loading()) {
     <div class="d-flex align-items-center gap-2 text-muted">
       <div class="spinner-border spinner-border-sm" role="status"></div>
       <span>Loading...</span>
     </div>
   }
 
-  @else if (error) {
+  @else if (error()) {
     <ngb-alert type="danger" [dismissible]="false">
-      {{ error }}
+      {{ error() }}
     </ngb-alert>
   }
 
-  @else if (games.length > 0) {
+  @else if (games().length > 0) {
     <table class="table table-striped align-middle">
       <thead>
         <tr>
@@ -27,7 +27,7 @@
       </thead>
 
       <tbody>
-        @for (g of games; track g.id) {
+        @for (g of games(); track g.id) {
           <tr>
             <td>{{ g.title }}</td>
             <td>{{ g.platform }}</td>

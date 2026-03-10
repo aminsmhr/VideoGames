@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { GameApiService, VideoGameDto } from '../../services/game-api-service/game-api-service'
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-game-list',
@@ -11,23 +9,22 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './game-list.css',
 })
 export class GameList implements OnInit {
-  games: VideoGameDto[] = [];
-  loading = true;
-  error: string | null = null;
+  readonly games = signal<VideoGameDto[]>([]);
+  readonly loading = signal(true);
+  readonly error = signal<string | null>(null);
 
-  constructor(private api: GameApiService, private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private api: GameApiService, private router: Router) {}
 
   ngOnInit(): void {
 
     this.api.list().subscribe({
       next: g => {
-        this.games = g;
-        this.loading = false;
-        this.cdr.detectChanges();
+        this.games.set(g);
+        this.loading.set(false);
       },
       error: e => {
-        this.error = 'Failed to load games.';
-        this.loading = false;
+        this.error.set('Failed to load games.');
+        this.loading.set(false);
       }
     });
   }
